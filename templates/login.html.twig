@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'login' %}
+{% block title %} - {% trans %}login{% endtrans %}{% endblock %}
+{% block body %}
+    <div id="particles-js"></div>
+    <div class="d-flex justify-content-center align-items-center main">
+        <div class="w-25 card">
+            <div class="card-body">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ asset('files/images/logo.png') }}" class="w-50" alt="">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form method="post">
+                            <h3 class="text-center">{% trans %}login{% endtrans %}</h3>
+
+                            {% if error is defined %}
+                                <div class="alert alert-danger">
+                                    {{ error }}
+                                </div>
+                            {% endif %}
+
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <label for="username" class="input-group-text">{% trans %}login.username{% endtrans %}</label>
+                                </div>
+                                <input type="text" name="username" class="form-control" id="username" placeholder="{% trans %}login.username{% endtrans %}">
+                            </div>
+
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <label for="password" class="input-group-text">{% trans %}login.password{% endtrans %}</label>
+                                </div>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="{% trans %}login.password{% endtrans %}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit">{% trans %}login.login{% endtrans %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('login') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('login') }}
+{% endblock %}

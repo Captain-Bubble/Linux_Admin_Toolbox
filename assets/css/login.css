@@ -1,0 +1,20 @@
+.main {
+	height: 100vh;
+}
+
+.main .card {
+	padding: 15px;
+}
+
+#particles-js {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #ffa500;
+}
+
+.input-group-text {
+	width: 130px;
+}

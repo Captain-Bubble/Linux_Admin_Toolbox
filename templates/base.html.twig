@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedhawk{% block title %}{% endblock %}</title>
+    {{ encore_entry_link_tags('app') }}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% if is_granted('ROLE_USER') %}
+    {{ include('necessary/navigation.html.twig') }}
+{% endif %}
+{% block body %}
+    {% if content is defined %}{{ content }}{% endif %}
+{% endblock %}
+{{ encore_entry_script_tags('app') }}
+{% block javascripts %}{% endblock %}
+</body>
 </html>
