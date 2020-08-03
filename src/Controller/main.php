@@ -12,20 +12,26 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class main extends AbstractController {
 
 
-		/**
+	/**
 	 * @Route("/")
 	 * @param TokenStorageInterface $token
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
-	public function main(TokenStorageInterface $token) {
+	public function main ( TokenStorageInterface $token ) {
 
 		$user = $token->getToken()->getUser();
 
-		if (!($user instanceof User)) {
-			return $this->redirect('/login');
+		if ( $user instanceof User ) {
+			return $this->render( 'base.html.twig' );
 		}
 
-		return $this->render('base.html.twig');
+		$uc = $this->getDoctrine()->getManager()->getRepository( User::class );
+		if ( empty( $uc->findAll() ) ) {
+			return $this->redirect( '/newSetup');
+		}
+
+
+		return $this->redirect( '/login' );
 	}
 
 }

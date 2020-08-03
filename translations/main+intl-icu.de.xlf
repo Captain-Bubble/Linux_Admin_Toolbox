@@ -5,9 +5,9 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="InV636N" resname="nav.setting">
-        <source>nav.setting</source>
-        <target>__nav.setting</target>
+      <trans-unit id="RWJphiz" resname="tool.name">
+        <source>tool.name</source>
+        <target>Linux Admin Toolbox</target>
       </trans-unit>
     </body>
   </file>

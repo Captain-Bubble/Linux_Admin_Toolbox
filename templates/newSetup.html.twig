@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'newSetup' %}
+{% block title %} - {% trans %}setup{% endtrans %}{% endblock %}
+{% block body %}
+	<div id="particles-js"></div>
+	<div class="d-flex justify-content-center align-items-center main">
+		<div class="w-50 card">
+			<div class="card-body">
+				<div class="d-flex justify-content-center">
+					<img src="{{ asset('/files/images/logo.png') }}" class="w-50" alt="{% trans from 'main' %}tool.name{% endtrans %}">
+				</div>
+				<div class="row">
+					<div class="col">
+						<form method="post">
+							<h3 class="text-center">{% trans %}setup{% endtrans %}</h3>
+
+							{% if error is defined %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endif %}
+
+							<p>{% trans %}welcome_text{% endtrans %}</p>
+
+							<p>{% trans %}user_setup_text{% endtrans %}</p>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<label for="username" class="input-group-text">{% trans %}username{% endtrans %}</label>
+								</div>
+								<input type="text" name="username" class="form-control" id="username" placeholder="{% trans %}username{% endtrans %}">
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<label for="password" class="input-group-text">{% trans %}password{% endtrans %}</label>
+								</div>
+								<input type="password" name="password" class="form-control" id="password" placeholder="{% trans %}password{% endtrans %}">
+							</div>
+
+							<p>{% trans %}root_account_text{% endtrans %}</p>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<label for="root_adress" class="input-group-text">
+										{% trans %}root_adress{% endtrans %}
+										<span class="badge" title="{% trans %}root_adress_shortdesc{% endtrans %}">
+											<svg class="fi fi-gray-dark fi-sm">
+												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
+											</svg>
+										</span>
+									</label>
+								</div>
+								<input type="text" name="root_adress" class="form-control" id="root_adress" placeholder="{% trans %}root_adress{% endtrans %}">
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<label for="root_username" class="input-group-text">{% trans %}root_username{% endtrans %}</label>
+								</div>
+								<input type="text" name="root_username" class="form-control" id="root_username" placeholder="{% trans %}root_username{% endtrans %}">
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<label for="root_password" class="input-group-text">
+										{% trans %}root_password{% endtrans %}
+										<span class="badge" title="{% trans %}root_password_shortdesc{% endtrans %}">
+											<svg class="fi fi-gray-dark fi-sm">
+												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
+											</svg>
+										</span>
+									</label>
+								</div>
+								<input type="text" name="root_password" class="form-control" id="root_password" placeholder="{% trans %}root_password{% endtrans %}">
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<label for="root_key_file" class="input-group-text">
+										{% trans %}root_key_file{% endtrans %}
+										<span class="badge" title="{% trans %}root_key_file_shortdesc{% endtrans %}">
+											<svg class="fi fi-gray-dark fi-sm">
+												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
+											</svg>
+										</span>
+									</label>
+								</div>
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="root_key_file">
+									<label class="custom-file-label" for="root_key_file">{% trans %}root_select_key_file{% endtrans %}</label>
+								</div>
+							</div>
+
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="1" id="require_sudo">
+								<label class="form-check-label" for="require_sudo">
+									{% trans %}root_require_sudo{% endtrans %}
+									<span class="badge" title="{% trans %}root_require_sudo_shortdesc{% endtrans %}">
+											<svg class="fi fi-gray-dark fi-sm">
+												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
+											</svg>
+										</span>
+								</label>
+							</div>
+
+							<button type="submit" class="btn btn-primary">{% trans %}save_datas{% endtrans %}</button>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+{% block stylesheets %}
+	{{ encore_entry_link_tags('new_setup') }}
+{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('new_setup') }}
+{% endblock %}

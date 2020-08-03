@@ -6,6 +6,7 @@
  */
 
 import '../ext/bootstrap/css/bootstrap.min.css';
+import '../css/app.css';
 
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.

@@ -9,26 +9,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class user_login extends AbstractController {
+class new_setup extends AbstractController {
 
 
 	/**
-	 * @Route("/login", methods={"GET"})
+	 * @Route("/newSetup", methods={"GET"})
 	 */
-	public function login ( TokenStorageInterface $token ) {
+	public function setup ( TokenStorageInterface $token ) {
 		$user = $token->getToken()->getUser();
 
+
+		/** making sure, no one can get to this point after first setup */
 		if ( $user instanceof User ) {
 			return $this->redirect( '/' );
 		}
 
-		return $this->render( 'login.html.twig' );
+		$uc = $this->getDoctrine()->getManager()->getRepository( User::class );
+		if ( empty( $uc->findAll() ) === false ) {
+			return $this->redirect( '/login');
+		}
+
+
+		/** only if no one exists in the database */
+		return $this->render( 'newSetup.html.twig' );
 	}
 
 	/**
-	 * @Route("/login", methods={"POST"}, name="login")
+	 * @Route("/newSetup", methods={"POST"}, name="login")
 	 */
-	public function login_post ( TokenStorageInterface $token ) {
+	public function setup_post ( TokenStorageInterface $token ) {
 
 		$user = $token->getToken()->getUser();
 

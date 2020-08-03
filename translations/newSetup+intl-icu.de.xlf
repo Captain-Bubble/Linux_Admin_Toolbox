@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="j7bV836" resname="setup">
+        <source>setup</source>
+        <target>Einrichtung</target>
+      </trans-unit>
+      <trans-unit id="q9qRrg4" resname="welcome_text">
+        <source>welcome_text</source>
+        <target>Herzlich Willkommen zum Einrichtungs-Assistent der Linux Admin Toolbox.
+         Zu Beginn muss erstmal ein Super-Admin Account angelegt werden.</target>
+      </trans-unit>
+      <trans-unit id="SRhAReu" resname="user_setup_text">
+        <source>user_setup_text</source>
+        <target>Dieser Account erhält automatisch Alle Rechte, daher sollte ein Sicherer Name und ein Sicheres Passwort gewählt werden</target>
+      </trans-unit>
+      <trans-unit id="FveKfWM" resname="username">
+        <source>username</source>
+        <target>Benutzername</target>
+      </trans-unit>
+      <trans-unit id="XohImNo" resname="password">
+        <source>password</source>
+        <target>Passwort</target>
+      </trans-unit>
+      <trans-unit id="XlWeEIk" resname="root_account_text">
+        <source>root_account_text</source>
+        <target>Geben Sie hier die Daten vom Linux-Server an, den Sie verwalten möchten.
+        Sie können die Felder auch Leer lassen, um Später einen Account einzurichten.</target>
+      </trans-unit>
+      <trans-unit id="yri.9sj" resname="root_adress">
+        <source>root_adress</source>
+        <target>Server-Adresse</target>
+      </trans-unit>
+      <trans-unit id="x2jCaaA" resname="root_adress_shortdesc">
+        <source>root_adress_shortdesc</source>
+        <target>Wenn die Server-Adresse Leer gelassen wird, wird automatisch der Server genommen auf dem diese Toolbox installiert ist.</target>
+      </trans-unit>
+      <trans-unit id="w3uO1lD" resname="root_username">
+        <source>root_username</source>
+        <target>Root Benutzer</target>
+      </trans-unit>
+      <trans-unit id="OXkbfnE" resname="root_password">
+        <source>root_password</source>
+        <target>Root Passwort</target>
+      </trans-unit>
+      <trans-unit id="wc1eNzv" resname="root_password_shortdesc">
+        <source>root_password_shortdesc</source>
+        <target>Falls Sie keinen Key haben wird ein Passwort benötigt</target>
+      </trans-unit>
+      <trans-unit id="f6AUzOR" resname="root_key_file">
+        <source>root_key_file</source>
+        <target>Private Key</target>
+      </trans-unit>
+      <trans-unit id="lMBTEsv" resname="root_key_file_shortdesc">
+        <source>root_key_file_shortdesc</source>
+        <target>(Empfohlen) Hier können Sie den Key hochladen, welcher zum Anmelden des Root-Benutzers verwendet wird</target>
+      </trans-unit>
+      <trans-unit id="4mw9fS6" resname="root_select_key_file">
+        <source>root_select_key_file</source>
+        <target>Private Key Auswählen...</target>
+      </trans-unit>
+      <trans-unit id="KeUYswT" resname="root_require_sudo">
+        <source>root_require_sudo</source>
+        <target>Root-Rechte nur mit sudo</target>
+      </trans-unit>
+      <trans-unit id="uUj8eJY" resname="root_require_sudo_shortdesc">
+        <source>root_require_sudo_shortdesc</source>
+        <target>Falls der Root-Zugang gesperrt ist können Sie auch einen Benutzer auswählen, welcher zugriff auf die Administrativen Befehle via sudo hat</target>
+      </trans-unit>
+      <trans-unit id="uAY1z7." resname="save_datas">
+        <source>save_datas</source>
+        <target>Daten Speichern</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

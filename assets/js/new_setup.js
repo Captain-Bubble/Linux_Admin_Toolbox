@@ -6,7 +6,7 @@
  */
 
 
-import '../css/login.css';
+import '../css/new_setup.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 
