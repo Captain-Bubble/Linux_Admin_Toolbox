@@ -39,20 +39,7 @@ class new_setup extends AbstractController {
 	 */
 	public function setup_post ( TokenStorageInterface $token ) {
 
-		$user = $token->getToken()->getUser();
 
-		if ( !( $user instanceof User ) ) {
-			return $this->render( 'login.html.twig', [ 'error' => 'Login Fehlgeschlagen' ] );
-		}
-
-		return $this->redirect( '/' );
-	}
-
-	/**
-	 * @Route("/logout", name="logout")
-	 */
-	public function main () {
-		return $this->redirect( '/login' );
 	}
 
 }
