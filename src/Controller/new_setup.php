@@ -20,8 +20,13 @@ class new_setup extends AbstractController {
 	 * @Route("/newSetup", methods={"GET"})
 	 */
 	public function setup ( TokenStorageInterface $token ) {
-		$user = $token->getToken()->getUser();
 
+		if (!file_exists($this->getParameter('kernel.project_dir') . $_ENV['SQLITE_PATH'])) {
+			shell_exec('php "'. $this->getParameter('kernel.project_dir') .'/bin/console"  doctrine:migrations:diff -n');
+			shell_exec('php "'. $this->getParameter('kernel.project_dir') .'/bin/console"  doctrine:migrations:migrate -n');
+		}
+
+		$user = $token->getToken()->getUser();
 
 		/** making sure, no one can get to this point after first setup */
 		if ( $user instanceof User ) {

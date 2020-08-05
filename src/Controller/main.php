@@ -20,6 +20,11 @@ class main extends AbstractController {
 	 */
 	public function main ( TokenStorageInterface $token ) {
 
+		if (!file_exists($this->getParameter('kernel.project_dir') . $_ENV['SQLITE_PATH'])) {
+			shell_exec('php "'. $this->getParameter('kernel.project_dir') .'/bin/console"  doctrine:migrations:diff -n');
+			shell_exec('php "'. $this->getParameter('kernel.project_dir') .'/bin/console"  doctrine:migrations:migrate -n');
+		}
+
 		$user = $token->getToken()->getUser();
 
 		// user is logged in, redirect to dashboard

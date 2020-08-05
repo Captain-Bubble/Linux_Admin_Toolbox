@@ -1,7 +1,15 @@
-{% block text_widget %}
-	asdasdasd
-{% endblock %}
-{% block password_widget %}
-	asdasdasd
-{% endblock %}
+{#{% block text_widget %}#}
+{#a#}
+{#{% endblock %}#}
 {# @TODO !!!rework for custom style (like in login) !!! #}
+{% block form_row %}
+	<div class="form-group">
+		<div class="input-group mb-2">
+			<div class="input-group-prepend">
+				{{ form_label(form, null, {'label_attr': {'class':'input-group-text'}}) }}
+			</div>
+			{{ form_widget(form) }}
+		</div>
+		{{ form_errors(form) }}
+	</div>
+{% endblock form_row %}
