@@ -103,6 +103,17 @@
 										</span>
 								</label>
 							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="1" id="require_password_on_sudo">
+								<label class="form-check-label" for="require_password_on_sudo">
+									{% trans %}root_require_password_on_sudo{% endtrans %}
+									<span class="badge" title="{% trans %}root_require_password_on_sudo_shortdesc{% endtrans %}">
+											<svg class="fi fi-gray-dark fi-sm">
+												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
+											</svg>
+										</span>
+								</label>
+							</div>
 
 							<button type="submit" class="btn btn-primary">{% trans %}save_datas{% endtrans %}</button>
 

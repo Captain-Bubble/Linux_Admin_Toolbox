@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -31,14 +32,17 @@ class new_setup extends AbstractController {
 
 
 		/** only if no one exists in the database */
-		return $this->render( 'newSetup.html.twig' );
+		return $this->render( 'newSetup.html.twig' );// @TODO rework for missing fields
 	}
 
 	/**
 	 * @Route("/newSetup", methods={"POST"}, name="login")
 	 */
-	public function setup_post ( TokenStorageInterface $token ) {
+	public function setup_post ( Request $request) {
+		// @TODO rework for missing fields @ linux account table
 
+
+//		if($request->get('username'))
 
 	}
 

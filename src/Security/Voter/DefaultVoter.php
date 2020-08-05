@@ -52,6 +52,10 @@ class DefaultVoter extends Voter {
 			return true;
 		}
 
+		/**
+		 * wont care if not super admin
+		 */
+
 		return false;
 	}
 }
