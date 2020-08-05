@@ -26,54 +26,17 @@
         <source>password</source>
         <target>Passwort</target>
       </trans-unit>
-      <trans-unit id="XlWeEIk" resname="root_account_text">
-        <source>root_account_text</source>
-        <target>Geben Sie hier die Daten vom Linux-Server an, den Sie verwalten möchten.
-        Sie können die Felder auch Leer lassen, um Später einen Account einzurichten.</target>
-      </trans-unit>
-      <trans-unit id="yri.9sj" resname="root_adress">
-        <source>root_adress</source>
-        <target>Server-Adresse</target>
-      </trans-unit>
-      <trans-unit id="x2jCaaA" resname="root_adress_shortdesc">
-        <source>root_adress_shortdesc</source>
-        <target>Wenn die Server-Adresse Leer gelassen wird, wird automatisch der Server genommen auf dem diese Toolbox installiert ist.</target>
-      </trans-unit>
-      <trans-unit id="w3uO1lD" resname="root_username">
-        <source>root_username</source>
-        <target>Root Benutzer</target>
-      </trans-unit>
-      <trans-unit id="OXkbfnE" resname="root_password">
-        <source>root_password</source>
-        <target>Root Passwort</target>
-      </trans-unit>
-      <trans-unit id="wc1eNzv" resname="root_password_shortdesc">
-        <source>root_password_shortdesc</source>
-        <target>Falls Sie keinen Key haben wird ein Passwort benötigt</target>
-      </trans-unit>
-      <trans-unit id="f6AUzOR" resname="root_key_file">
-        <source>root_key_file</source>
-        <target>Private Key</target>
-      </trans-unit>
-      <trans-unit id="lMBTEsv" resname="root_key_file_shortdesc">
-        <source>root_key_file_shortdesc</source>
-        <target>(Empfohlen) Hier können Sie den Key hochladen, welcher zum Anmelden des Root-Benutzers verwendet wird</target>
-      </trans-unit>
-      <trans-unit id="4mw9fS6" resname="root_select_key_file">
-        <source>root_select_key_file</source>
-        <target>Private Key Auswählen...</target>
-      </trans-unit>
-      <trans-unit id="KeUYswT" resname="root_require_sudo">
-        <source>root_require_sudo</source>
-        <target>Root-Rechte nur mit sudo</target>
-      </trans-unit>
-      <trans-unit id="uUj8eJY" resname="root_require_sudo_shortdesc">
-        <source>root_require_sudo_shortdesc</source>
-        <target>Falls der Root-Zugang gesperrt ist können Sie auch einen Benutzer auswählen, welcher zugriff auf die Administrativen Befehle via sudo hat</target>
-      </trans-unit>
       <trans-unit id="uAY1z7." resname="save_datas">
         <source>save_datas</source>
         <target>Daten Speichern</target>
+      </trans-unit>
+      <trans-unit id="9anbSLg" resname="error_username_empty">
+        <source>error_username_empty</source>
+        <target>__error_username_empty</target>
+      </trans-unit>
+      <trans-unit id="HMgqWPO" resname="error_password_empty">
+        <source>error_password_empty</source>
+        <target>__error_password_empty</target>
       </trans-unit>
     </body>
   </file>

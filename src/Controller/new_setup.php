@@ -5,10 +5,13 @@ namespace App\Controller;
 
 
 use App\Entity\User;
-use http\Env\Request;
+use App\Form\NewSetupFormType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class new_setup extends AbstractController {
 
@@ -30,20 +33,58 @@ class new_setup extends AbstractController {
 			return $this->redirect( '/login');
 		}
 
-
 		/** only if no one exists in the database */
-		return $this->render( 'newSetup.html.twig' );// @TODO rework for missing fields
+
+		$form = $this->createForm( NewSetupFormType::class, new User());
+
+		return $this->render( 'newSetup.html.twig', [
+			'f' => $form->createView()
+		] );
 	}
 
 	/**
-	 * @Route("/newSetup", methods={"POST"}, name="login")
+	 * @Route("/newSetup", methods={"POST"})
 	 */
-	public function setup_post ( Request $request) {
-		// @TODO rework for missing fields @ linux account table
+	public function setup_post ( Request $request, TranslatorInterface $trans, UserPasswordEncoderInterface $passwordEncoder) {
 
+		$em = $this->getDoctrine()->getManager();
 
-//		if($request->get('username'))
+		if ( empty( $em->getRepository( User::class)->findAll() ) === false ) {
+			return $this->redirect( '/login');
+		}
 
+		$form = $this->createForm( NewSetupFormType::class, new User());
+
+		$form->handleRequest($request);
+
+		$user = new User();
+		if ($form->isSubmitted() && $form->isValid()) {
+			$user = $form->getData();
+		}
+
+		if (empty( $user->getUsername()) === true) {
+
+			return $this->render( 'newSetup.html.twig', [
+				'f' => $form->createView(),
+				'error' => $trans->trans( 'error_username_empty', [], 'newSetup')
+			] );
+		}
+
+		if (empty( $user->getPassword()) === true) {
+			return $this->render( 'newSetup.html.twig', [
+				'f' => $form->createView(),
+				'error' => $trans->trans( 'error_password_empty', [], 'newSetup')
+			] );
+		}
+
+		$pw = $user->getPassword();
+
+		$user->setPassword( $passwordEncoder->encodePassword( $user, $pw));
+
+		$em->persist( $user);
+		$em->flush();
+
+		return $this->redirect( '/login');
 	}
 
 }

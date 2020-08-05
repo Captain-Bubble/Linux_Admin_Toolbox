@@ -11,113 +11,223 @@
 				</div>
 				<div class="row">
 					<div class="col">
-						<form method="post">
-							<h3 class="text-center">{% trans %}setup{% endtrans %}</h3>
+						<p>{{ "welcome_text"|trans|nl2br }}</p>
+						<p>{{ "user_setup_text"|trans|nl2br }}</p>
+						{# @TODO umstellung von forms nachgucken. ggf wieder zurück zur manuellen Formular-Generierung wechseln#}
+						{{ form(f) }}
+{#						<form method="post">#}
+{#							<h3 class="text-center">{% trans %}setup{% endtrans %}</h3>#}
 
-							{% if error is defined %}
-								<div class="alert alert-danger">
-									{{ error }}
-								</div>
-							{% endif %}
+{#							{% if error is defined %}#}
+{#								<div class="alert alert-danger">#}
+{#									{{ error }}#}
+{#								</div>#}
+{#							{% endif %}#}
 
-							<p>{% trans %}welcome_text{% endtrans %}</p>
+{#							<p>{% trans %}welcome_text{% endtrans %}</p>#}
 
-							<p>{% trans %}user_setup_text{% endtrans %}</p>
+{#							<p>{% trans %}user_setup_text{% endtrans %}</p>#}
 
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<label for="username" class="input-group-text">{% trans %}username{% endtrans %}</label>
-								</div>
-								<input type="text" name="username" class="form-control" id="username" placeholder="{% trans %}username{% endtrans %}">
-							</div>
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="username" class="input-group-text">{% trans %}username{% endtrans %}</label>#}
+{#								</div>#}
+{#								<input type="text" name="username" class="form-control" id="username" placeholder="{% trans %}username{% endtrans %}">#}
+{#							</div>#}
 
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<label for="password" class="input-group-text">{% trans %}password{% endtrans %}</label>
-								</div>
-								<input type="password" name="password" class="form-control" id="password" placeholder="{% trans %}password{% endtrans %}">
-							</div>
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="password" class="input-group-text">{% trans %}password{% endtrans %}</label>#}
+{#								</div>#}
+{#								<input type="password" name="password" class="form-control" id="password" placeholder="{% trans %}password{% endtrans %}">#}
+{#							</div>#}
 
-							<p>{% trans %}root_account_text{% endtrans %}</p>
+{#							<p>{% trans %}root_account_text{% endtrans %}</p>#}
 
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<label for="root_adress" class="input-group-text">
-										{% trans %}root_adress{% endtrans %}
-										<span class="badge" title="{% trans %}root_adress_shortdesc{% endtrans %}">
-											<svg class="fi fi-gray-dark fi-sm">
-												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
-											</svg>
-										</span>
-									</label>
-								</div>
-								<input type="text" name="root_adress" class="form-control" id="root_adress" placeholder="{% trans %}root_adress{% endtrans %}">
-							</div>
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="root_adress" class="input-group-text">#}
+{#										{% trans %}root_adress{% endtrans %}#}
+{#										<span class="badge" title="{% trans %}root_adress_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#									</label>#}
+{#								</div>#}
+{#								<input type="text" name="root_adress" class="form-control" id="root_adress" placeholder="{% trans %}root_adress{% endtrans %}">#}
+{#							</div>#}
 
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<label for="root_username" class="input-group-text">{% trans %}root_username{% endtrans %}</label>
-								</div>
-								<input type="text" name="root_username" class="form-control" id="root_username" placeholder="{% trans %}root_username{% endtrans %}">
-							</div>
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="root_username" class="input-group-text">{% trans %}root_username{% endtrans %}</label>#}
+{#								</div>#}
+{#								<input type="text" name="root_username" class="form-control" id="root_username" placeholder="{% trans %}root_username{% endtrans %}">#}
+{#							</div>#}
 
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<label for="root_password" class="input-group-text">
-										{% trans %}root_password{% endtrans %}
-										<span class="badge" title="{% trans %}root_password_shortdesc{% endtrans %}">
-											<svg class="fi fi-gray-dark fi-sm">
-												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
-											</svg>
-										</span>
-									</label>
-								</div>
-								<input type="text" name="root_password" class="form-control" id="root_password" placeholder="{% trans %}root_password{% endtrans %}">
-							</div>
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="root_password" class="input-group-text">#}
+{#										{% trans %}root_password{% endtrans %}#}
+{#										<span class="badge" title="{% trans %}root_password_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#									</label>#}
+{#								</div>#}
+{#								<input type="text" name="root_password" class="form-control" id="root_password" placeholder="{% trans %}root_password{% endtrans %}">#}
+{#							</div>#}
 
-							<div class="input-group mb-2">
-								<div class="input-group-prepend">
-									<label for="root_key_file" class="input-group-text">
-										{% trans %}root_key_file{% endtrans %}
-										<span class="badge" title="{% trans %}root_key_file_shortdesc{% endtrans %}">
-											<svg class="fi fi-gray-dark fi-sm">
-												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
-											</svg>
-										</span>
-									</label>
-								</div>
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="root_key_file">
-									<label class="custom-file-label" for="root_key_file">{% trans %}root_select_key_file{% endtrans %}</label>
-								</div>
-							</div>
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="root_key_file" class="input-group-text">#}
+{#										{% trans %}root_key_file{% endtrans %}#}
+{#										<span class="badge" title="{% trans %}root_key_file_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#									</label>#}
+{#								</div>#}
+{#								<div class="custom-file">#}
+{#									<input type="file" class="custom-file-input" id="root_key_file">#}
+{#									<label class="custom-file-label" for="root_key_file">{% trans %}root_select_key_file{% endtrans %}</label>#}
+{#								</div>#}
+{#							</div>#}
 
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="1" id="require_sudo">
-								<label class="form-check-label" for="require_sudo">
-									{% trans %}root_require_sudo{% endtrans %}
-									<span class="badge" title="{% trans %}root_require_sudo_shortdesc{% endtrans %}">
-											<svg class="fi fi-gray-dark fi-sm">
-												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
-											</svg>
-										</span>
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="1" id="require_password_on_sudo">
-								<label class="form-check-label" for="require_password_on_sudo">
-									{% trans %}root_require_password_on_sudo{% endtrans %}
-									<span class="badge" title="{% trans %}root_require_password_on_sudo_shortdesc{% endtrans %}">
-											<svg class="fi fi-gray-dark fi-sm">
-												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />
-											</svg>
-										</span>
-								</label>
-							</div>
+{#							<div class="form-check">#}
+{#								<input class="form-check-input" type="checkbox" value="1" id="require_sudo">#}
+{#								<label class="form-check-label" for="require_sudo">#}
+{#									{% trans %}root_require_sudo{% endtrans %}#}
+{#									<span class="badge" title="{% trans %}root_require_sudo_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#								</label>#}
+{#							</div>#}
+{#							<div class="form-check">#}
+{#								<input class="form-check-input" type="checkbox" value="1" id="require_password_on_sudo">#}
+{#								<label class="form-check-label" for="require_password_on_sudo">#}
+{#									{% trans %}root_require_password_on_sudo{% endtrans %}#}
+{#									<span class="badge" title="{% trans %}root_require_password_on_sudo_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#								</label>#}
+{#							</div>#}
 
-							<button type="submit" class="btn btn-primary">{% trans %}save_datas{% endtrans %}</button>
+{#							<button type="submit" class="btn btn-primary">{% trans %}save_datas{% endtrans %}</button>#}
 
-						</form>
+{#						</form>#}{#						<form method="post">#}
+{#							<h3 class="text-center">{% trans %}setup{% endtrans %}</h3>#}
+
+{#							{% if error is defined %}#}
+{#								<div class="alert alert-danger">#}
+{#									{{ error }}#}
+{#								</div>#}
+{#							{% endif %}#}
+
+{#							<p>{% trans %}welcome_text{% endtrans %}</p>#}
+
+{#							<p>{% trans %}user_setup_text{% endtrans %}</p>#}
+
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="username" class="input-group-text">{% trans %}username{% endtrans %}</label>#}
+{#								</div>#}
+{#								<input type="text" name="username" class="form-control" id="username" placeholder="{% trans %}username{% endtrans %}">#}
+{#							</div>#}
+
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="password" class="input-group-text">{% trans %}password{% endtrans %}</label>#}
+{#								</div>#}
+{#								<input type="password" name="password" class="form-control" id="password" placeholder="{% trans %}password{% endtrans %}">#}
+{#							</div>#}
+
+{#							<p>{% trans %}root_account_text{% endtrans %}</p>#}
+
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="root_adress" class="input-group-text">#}
+{#										{% trans %}root_adress{% endtrans %}#}
+{#										<span class="badge" title="{% trans %}root_adress_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#									</label>#}
+{#								</div>#}
+{#								<input type="text" name="root_adress" class="form-control" id="root_adress" placeholder="{% trans %}root_adress{% endtrans %}">#}
+{#							</div>#}
+
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="root_username" class="input-group-text">{% trans %}root_username{% endtrans %}</label>#}
+{#								</div>#}
+{#								<input type="text" name="root_username" class="form-control" id="root_username" placeholder="{% trans %}root_username{% endtrans %}">#}
+{#							</div>#}
+
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="root_password" class="input-group-text">#}
+{#										{% trans %}root_password{% endtrans %}#}
+{#										<span class="badge" title="{% trans %}root_password_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#									</label>#}
+{#								</div>#}
+{#								<input type="text" name="root_password" class="form-control" id="root_password" placeholder="{% trans %}root_password{% endtrans %}">#}
+{#							</div>#}
+
+{#							<div class="input-group mb-2">#}
+{#								<div class="input-group-prepend">#}
+{#									<label for="root_key_file" class="input-group-text">#}
+{#										{% trans %}root_key_file{% endtrans %}#}
+{#										<span class="badge" title="{% trans %}root_key_file_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#									</label>#}
+{#								</div>#}
+{#								<div class="custom-file">#}
+{#									<input type="file" class="custom-file-input" id="root_key_file">#}
+{#									<label class="custom-file-label" for="root_key_file">{% trans %}root_select_key_file{% endtrans %}</label>#}
+{#								</div>#}
+{#							</div>#}
+
+{#							<div class="form-check">#}
+{#								<input class="form-check-input" type="checkbox" value="1" id="require_sudo">#}
+{#								<label class="form-check-label" for="require_sudo">#}
+{#									{% trans %}root_require_sudo{% endtrans %}#}
+{#									<span class="badge" title="{% trans %}root_require_sudo_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#								</label>#}
+{#							</div>#}
+{#							<div class="form-check">#}
+{#								<input class="form-check-input" type="checkbox" value="1" id="require_password_on_sudo">#}
+{#								<label class="form-check-label" for="require_password_on_sudo">#}
+{#									{% trans %}root_require_password_on_sudo{% endtrans %}#}
+{#									<span class="badge" title="{% trans %}root_require_password_on_sudo_shortdesc{% endtrans %}">#}
+{#											<svg class="fi fi-gray-dark fi-sm">#}
+{#												<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#info" />#}
+{#											</svg>#}
+{#										</span>#}
+{#								</label>#}
+{#							</div>#}
+
+{#							<button type="submit" class="btn btn-primary">{% trans %}save_datas{% endtrans %}</button>#}
+
+{#						</form>#}
 					</div>
 				</div>
 			</div>

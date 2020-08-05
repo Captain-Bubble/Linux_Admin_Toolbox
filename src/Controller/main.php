@@ -24,7 +24,7 @@ class main extends AbstractController {
 
 		// user is logged in, redirect to dashboard
 		if ( $user instanceof User ) {
-			$this->redirect( '/dashboard');
+			return $this->redirect( '/dashboard');
 		}
 
 		// no user exists in database, redirect to initial setup page
@@ -41,7 +41,6 @@ class main extends AbstractController {
 	/**
 	 * @Route("/dashboard")
 	 * @IsGranted("ROLE_USER")
-	 * @param TokenStorageInterface $token
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function dashboard ( ) {

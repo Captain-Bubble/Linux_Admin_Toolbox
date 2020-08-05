@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\Bundle\Model;
+namespace App\Bundle;
 
 
 use Exception;
@@ -16,7 +16,9 @@ class serverConnection extends AbstractController {
 	private $output = '';
 	private $serverPath = '/';
 
-	public function __construct (int $id) {
+	public function __construct () { }
+
+	public function setUser (int $id ) : void {
 		$la = $this->getDoctrine()->getManager()->getRepository( LinuxAccounts::class);
 		$this->user = $la->findOneBy( ['id' => $id]);
 	}
