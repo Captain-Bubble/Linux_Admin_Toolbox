@@ -9,20 +9,20 @@
         <source>login</source>
         <target>Anmeldung</target>
       </trans-unit>
-      <trans-unit id="wsaupPh" resname="login.username">
-        <source>login.username</source>
+      <trans-unit id="Ow79eEJ" resname="login_username">
+        <source>login_username</source>
         <target>Benutzername</target>
       </trans-unit>
-      <trans-unit id="guXTUCg" resname="login.password">
-        <source>login.password</source>
+      <trans-unit id="tkxtcgG" resname="login_password">
+        <source>login_password</source>
         <target>Passwort</target>
       </trans-unit>
-      <trans-unit id="FgrJl93" resname="login.login">
-        <source>login.login</source>
+      <trans-unit id="yyxx8Td" resname="login_login">
+        <source>login_login</source>
         <target>Anmelden</target>
       </trans-unit>
-      <trans-unit id="QMtqXma" resname="login.error">
-        <source>login.error</source>
+      <trans-unit id="R8tcGsl" resname="login_error">
+        <source>login_error</source>
         <target>Benutzername oder Passwort falsch</target>
       </trans-unit>
     </body>

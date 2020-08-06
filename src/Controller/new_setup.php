@@ -21,7 +21,7 @@ class new_setup extends AbstractController {
 	 */
 	public function setup ( TokenStorageInterface $token ) {
 
-		if (!file_exists($this->getParameter('kernel.project_dir') . $_ENV['SQLITE_PATH'])) {
+		if (isset( $_ENV['SQLITE_PATH']) && !file_exists($this->getParameter('kernel.project_dir') . $_ENV['SQLITE_PATH'])) {
 			shell_exec('php "'. $this->getParameter('kernel.project_dir') .'/bin/console"  doctrine:migrations:diff -n');
 			shell_exec('php "'. $this->getParameter('kernel.project_dir') .'/bin/console"  doctrine:migrations:migrate -n');
 		}

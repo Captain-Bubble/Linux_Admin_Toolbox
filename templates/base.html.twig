@@ -8,7 +8,7 @@
 </head>
 <body>
 {% if is_granted('ROLE_USER') %}
-{#    {{ include('necessary/navigation.html.twig') }}#}
+    {{ include('necessary/navigation.html.twig') }}
 {% endif %}
 {% block body %}
     {% if content is defined %}{{ content }}{% endif %}

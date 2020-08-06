@@ -28,7 +28,7 @@ class DefaultAuthenticator extends AbstractFormLoginAuthenticator implements Pas
 	}
 
 	/**
-	//	 * check if authenticator is used/should be used
+	 * check if authenticator is used/should be used
 	 * @param Request $request
 	 * @return bool
 	 */

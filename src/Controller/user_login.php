@@ -20,7 +20,7 @@ class user_login extends AbstractController {
 		$user = $token->getToken()->getUser();
 
 		if ( $user instanceof User ) {
-			return $this->redirect( '/' );
+			return $this->redirect( '/dashboard' );
 		}
 
 		return $this->render( 'login.html.twig' );
@@ -34,7 +34,7 @@ class user_login extends AbstractController {
 		$user = $token->getToken()->getUser();
 
 		if ( !( $user instanceof User ) ) {
-			return $this->render( 'login.html.twig', [ 'error' => $trans->trans( 'login.error', [], 'login') ] );
+			return $this->render( 'login.html.twig', [ 'error' => $trans->trans( 'login_error', [], 'login') ] );
 		}
 
 		return $this->redirect( '/dashboard' );
