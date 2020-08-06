@@ -43,7 +43,7 @@ class main extends AbstractController {
 
 
 	/**
-	 * @Route("/dashboard")
+	 * @Route("/dashboard", name="dashboard")
 	 * @IsGranted("ROLE_USER")
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */

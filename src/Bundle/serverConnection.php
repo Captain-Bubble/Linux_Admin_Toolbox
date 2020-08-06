@@ -101,7 +101,7 @@ class serverConnection extends AbstractController {
 		} else {
 			$this->serverPath = $this->serverPath .'/'. $folder;
 		}
-		return true;
+		return $this;
 	}
 
 	public function listFolders() {

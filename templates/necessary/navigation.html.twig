@@ -10,13 +10,25 @@
 		<ul class="navbar-nav mr-auto">
 			{% for item in gen.menu %}
 				<li class="nav-item">
-					<a class="nav-link" href="{{ item.url }}">{{ item.name }}</a>
+					<a class="nav-link" href="{{ item.url }}">
+						{% if item.translation_domain is defined %}
+							{{ item.name | trans([], item.translation_domain) }}
+						{% else %}
+							{{ item.name | trans }}
+						{% endif %}
+					</a>
 				</li>
 			{% endfor %}
 		</ul>
 		<ul class="my-2 my-lg-0 navbar-nav">
 			<li class="nav-item">
-				<a href="{{ url("/logout") }}" class="nav-link">
+				<a href="{{ url("settings") }}" class="nav-link">
+					<svg class="fi fi-gray-dark">
+						<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#settings" />
+					</svg>
+				</a>
+			</li><li class="nav-item">
+				<a href="{{ url("logout") }}" class="nav-link">
 					<svg class="fi fi-gray-dark">
 						<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#power" />
 					</svg>

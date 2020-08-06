@@ -7,12 +7,16 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+<div class="container-fluid">
 {% if is_granted('ROLE_USER') %}
     {{ include('necessary/navigation.html.twig') }}
 {% endif %}
+{% block nav %}
+{% endblock %}
 {% block body %}
     {% if content is defined %}{{ content }}{% endif %}
 {% endblock %}
+</div>
 {{ encore_entry_script_tags('app') }}
 {% block javascripts %}{% endblock %}
 </body>
