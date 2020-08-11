@@ -22,7 +22,7 @@
 		</ul>
 		<ul class="my-2 my-lg-0 navbar-nav">
 			<li class="nav-item">
-				<a href="{{ url("settings") }}" class="nav-link">
+				<a href="{{ url("settings") }}" class="nav-link{% if route starts with 'settings' %} active{% endif %}">
 					<svg class="fi fi-gray-dark">
 						<use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#settings" />
 					</svg>

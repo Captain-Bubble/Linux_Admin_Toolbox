@@ -19,5 +19,23 @@ class settings extends AbstractController {
 		return $this->render( 'settings.html.twig');
 	}
 
+	/**
+	 * @Route("/settings/useracc", name="settings.useracc")
+	 * @IsGranted("ROLE_USER")
+	 */
+	public function useracc ( ) {
+
+		return $this->render( 'settings.html.twig');
+	}
+
+	/**
+	 * @Route("/settings/linuxacc", name="settings.linuxacc")
+	 * @IsGranted("ROLE_USER")
+	 */
+	public function linuxacc ( ) {
+
+		return $this->render( 'settings.html.twig');
+	}
+
 }
 

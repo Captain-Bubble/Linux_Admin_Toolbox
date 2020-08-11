@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+	{% set route = app.request.attributes.get('_route') %}
     <meta charset="UTF-8">
     <title>Linux Admin Toolbox{% block title %}{% endblock %}</title>
     {{ encore_entry_link_tags('app') }}
@@ -8,14 +9,16 @@
 </head>
 <body>
 <div class="container-fluid">
-{% if is_granted('ROLE_USER') %}
-    {{ include('necessary/navigation.html.twig') }}
-{% endif %}
-{% block nav %}
-{% endblock %}
-{% block body %}
-    {% if content is defined %}{{ content }}{% endif %}
-{% endblock %}
+	{% if is_granted('ROLE_USER') %}
+			{{ include('necessary/navigation.html.twig') }}
+	{% endif %}
+	<div class="row">
+		{% block nav %}
+		{% endblock %}
+		{% block body %}
+				{% if content is defined %}{{ content }}{% endif %}
+		{% endblock %}
+	</div>
 </div>
 {{ encore_entry_script_tags('app') }}
 {% block javascripts %}{% endblock %}
