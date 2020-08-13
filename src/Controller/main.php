@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use LogicException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,6 +50,13 @@ class main extends AbstractController {
 	 */
 	public function dashboard ( ) {
 		return $this->render( 'base.html.twig' );
+	}
+
+	/**
+	 * @Route ("/logout", name="logout")
+	 */
+	public function logout() {
+		throw new logicException('logout function in main shouldn´t be able to run');
 	}
 
 

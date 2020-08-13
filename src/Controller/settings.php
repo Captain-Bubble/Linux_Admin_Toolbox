@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +26,11 @@ class settings extends AbstractController {
 	 */
 	public function useracc ( ) {
 
-		return $this->render( 'settings.html.twig');
+		$users = $this->getDoctrine()->getManager()->getRepository( User::class)->findAll();
+
+		return $this->render( 'settings.html.twig', [
+			'nav' => $users
+			]);
 	}
 
 	/**

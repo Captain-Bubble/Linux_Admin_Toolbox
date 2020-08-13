@@ -7,7 +7,15 @@
     <body>
       <trans-unit id="InV636N" resname="nav.setting">
         <source>nav.setting</source>
-        <target>__nav.setting</target>
+        <target>Einstellungen</target>
+      </trans-unit>
+      <trans-unit id="ucFTpvC" resname="useracc">
+        <source>useracc</source>
+        <target>Benutzeraccounts</target>
+      </trans-unit>
+      <trans-unit id="e7dJ_Fe" resname="linuxacc">
+        <source>linuxacc</source>
+        <target>Linux Server</target>
       </trans-unit>
     </body>
   </file>

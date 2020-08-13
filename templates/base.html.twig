@@ -8,18 +8,20 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
-<div class="container-fluid">
 	{% if is_granted('ROLE_USER') %}
-			{{ include('necessary/navigation.html.twig') }}
+		<div class="container-fluid">
+		{{ include('necessary/navigation.html.twig') }}
+			<div class="row">
 	{% endif %}
-	<div class="row">
 		{% block nav %}
 		{% endblock %}
 		{% block body %}
 				{% if content is defined %}{{ content }}{% endif %}
 		{% endblock %}
-	</div>
-</div>
+	{% if is_granted('ROLE_USER') %}
+		</div>
+		</div>
+	{% endif %}
 {{ encore_entry_script_tags('app') }}
 {% block javascripts %}{% endblock %}
 </body>
