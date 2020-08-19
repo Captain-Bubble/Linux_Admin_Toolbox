@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\EditUserAccountType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ class settings extends AbstractController {
 	 */
 	public function settings ( ) {
 
-		return $this->render( 'settings.html.twig');
+		return $this->render( 'settings/settings.html.twig');
 	}
 
 	/**
@@ -28,8 +29,23 @@ class settings extends AbstractController {
 
 		$users = $this->getDoctrine()->getManager()->getRepository( User::class)->findAll();
 
-		return $this->render( 'settings.html.twig', [
-			'nav' => $users
+		return $this->render( 'settings/settings.user.html.twig', [
+			'users' => $users
+			]);
+	}
+
+	/**
+	 * @Route("/settings/useracc/get/{id}", name="settings.useracc.ajax")
+	 * @IsGranted("ROLE_USER")
+	 */
+	public function editUseracc ( int $id) {
+
+		$user = $this->getDoctrine()->getManager()->getRepository( User::class)->find($id);
+
+		$form = $this->createForm( EditUserAccountType::class, $user);
+
+		return $this->render( 'settings/settings.user.html.twig', [
+			'f' => $form
 			]);
 	}
 
@@ -39,7 +55,7 @@ class settings extends AbstractController {
 	 */
 	public function linuxacc ( ) {
 
-		return $this->render( 'settings.html.twig');
+		return $this->render( 'settings/settings.html.twig');
 	}
 
 }

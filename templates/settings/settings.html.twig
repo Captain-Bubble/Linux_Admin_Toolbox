@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '/base.html.twig' %}
 {% trans_default_domain 'settings' %}
 {% block title %} - {% trans %}nav.setting{% endtrans %}{% endblock %}
 {% block nav %}
@@ -14,17 +14,9 @@
 	</div>
 {% endblock %}
 {% block body %}
-	<div class="col-9">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-3">{{ route }}
-				</div>
-				<div class="col-3">
-				</div>
-				<div class="col-6">
-				</div>
-			</div>
-		</div>
+	<div class="col-3">
+	</div>
+	<div class="col-6">
 	</div>
 {% endblock %}
 {# {% block stylesheets %} #}

@@ -1,0 +1,17 @@
+{% extends '/settings/settings.html.twig' %}
+{% trans_default_domain 'settings' %}
+{% block body %}
+	<div class="col-3">
+		<ul class="list-group">
+			{% for user in users %}
+				<li class="list-group-item user" data-id="{{ user.id }}">{{ user.username }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="col-6" id="content"></div>
+{% endblock %}
+{# {% block stylesheets %} #}
+{# {% endblock %} #}
+{% block javascripts %}
+	{{ encore_entry_script_tags('settings') }}
+{% endblock %}

@@ -2,26 +2,25 @@
 <html lang="de">
 <head>
 	{% set route = app.request.attributes.get('_route') %}
-    <meta charset="UTF-8">
-    <title>Linux Admin Toolbox{% block title %}{% endblock %}</title>
-    {{ encore_entry_link_tags('app') }}
-    {% block stylesheets %}{% endblock %}
+	<meta charset="UTF-8">
+	<title>Linux Admin Toolbox{% block title %}{% endblock %}</title>
+	{{ encore_entry_link_tags('app') }}
+	{% block stylesheets %}{% endblock %}
 </head>
 <body>
-	{% if is_granted('ROLE_USER') %}
-		<div class="container-fluid">
-		{{ include('necessary/navigation.html.twig') }}
-			<div class="row">
-	{% endif %}
-		{% block nav %}
-		{% endblock %}
+{% if is_granted('ROLE_USER') %}
+<div class="container-fluid">
+	{{ include('necessary/navigation.html.twig') }}
+	<div class="row">
+		{% endif %}
+		{% block nav %}{% endblock %}
 		{% block body %}
-				{% if content is defined %}{{ content }}{% endif %}
+			{% if content is defined %}{{ content }}{% endif %}
 		{% endblock %}
-	{% if is_granted('ROLE_USER') %}
-		</div>
-		</div>
-	{% endif %}
+		{% if is_granted('ROLE_USER') %}
+	</div>
+</div>
+{% endif %}
 {{ encore_entry_script_tags('app') }}
 {% block javascripts %}{% endblock %}
 </body>
