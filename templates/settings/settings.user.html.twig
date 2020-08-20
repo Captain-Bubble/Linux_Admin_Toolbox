@@ -13,5 +13,8 @@
 {# {% block stylesheets %} #}
 {# {% endblock %} #}
 {% block javascripts %}
+	<script>
+		let url_load_edit_user = "{{ url('settings.useracc.ajax') }}"
+	</script>
 	{{ encore_entry_script_tags('settings') }}
 {% endblock %}

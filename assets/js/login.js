@@ -5,12 +5,14 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-
+// ------------------ CSS -----------------
 import '../css/login.css';
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 
-// import $ from 'jquery';
+// ------------------ JS -----------------
+
 import '../ext/particles/particles.min';
-import '../scripts/login.js';
+import pconfig from '../ext/particles/particlesjs-config.json';
+
+window.particlesJS('particles-js', pconfig);
 
