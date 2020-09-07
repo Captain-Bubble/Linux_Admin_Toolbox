@@ -40,9 +40,13 @@ class settings extends AbstractController {
 	 * @IsGranted("ROLE_USER")
 	 */
 	public function editUseraccForm ( Request $request ) {
-		$id = $request->get( 'id' );
+		$id = $request->get( 'id', 0 );
 
-		$user = $this->getDoctrine()->getManager()->getRepository( User::class )->find( $id );
+		if (empty( $id) === true) {
+			$user = new User();
+		} else {
+			$user = $this->getDoctrine()->getManager()->getRepository( User::class )->find( $id );
+		}
 
 		$form = $this->createForm( EditUserAccountType::class, $user );
 

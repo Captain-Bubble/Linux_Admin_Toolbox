@@ -3,23 +3,26 @@
 namespace App\Bundle;
 
 
+use Doctrine\ORM\EntityManager;
 use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\LinuxAccounts;
 
 // @TODO rework for better use with symfony
 
-class serverConnection extends AbstractController {
+class serverConnection {
 
 	private $user = null;
 	private $connection = null;
 	private $output = '';
 	private $serverPath = '/';
+	private $em = null;
 
-	public function __construct () { }
+	public function __construct (EntityManager $em) {
+		$this->em = $em;
+	}
 
 	public function setUser (int $id ) : void {
-		$la = $this->getDoctrine()->getManager()->getRepository( LinuxAccounts::class);
+		$la = $this->em->getRepository( LinuxAccounts::class);
 		$this->user = $la->findOneBy( ['id' => $id]);
 	}
 
