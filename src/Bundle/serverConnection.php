@@ -23,7 +23,7 @@ class serverConnection {
 
 	public function setUser (int $id ) : void {
 		$la = $this->em->getRepository( LinuxAccounts::class);
-		$this->user = $la->findOneBy( ['id' => $id]);
+		$this->user = $la->find( $id);
 	}
 
 
