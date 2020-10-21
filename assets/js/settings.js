@@ -24,5 +24,12 @@ $(document).ready(function (){
 			}
 		})
 	});
+
+	$(document).on('click', '.sendSubmitEditUser', function (e){
+		e.preventDefault();
+		// let dat = $(this).parents('form').serialize();
+
+
+	});
 });
 

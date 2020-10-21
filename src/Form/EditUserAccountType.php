@@ -33,6 +33,7 @@ class EditUserAccountType extends AbstractType
 						])
 					->add( 'submit', SubmitType::class, [
 						'label' => 'submit',
+						'attr' => ['class' => 'btn-primary sendSubmitEditUser'],
 						'translation_domain' => 'settings.editUserAccount'
 					])
         ;
