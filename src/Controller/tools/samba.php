@@ -10,15 +10,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class samba extends AbstractController {
 
 	public static function menu() {
-		return ['url' => '/samba', 'name' => 'samba', 'translation_domain' => 'samba'];
+		return ['url' => 'sambaMain', 'name' => 'samba', 'translation_domain' => 'samba'];
 	}
 
 	/**
-	 * @Route("/samba")
+	 * @Route("/samba", name="sambaMain")
 	 *
 	 */
 	public function samba() {
-		return $this->render( 'tools/samba.html.twig');
+		return $this->render( 'tools/samba/samba.html.twig');
 	}
 
 }

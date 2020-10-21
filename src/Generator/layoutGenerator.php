@@ -17,7 +17,10 @@ class layoutGenerator {
 		if ($finder->hasResults()) {
 			foreach ($finder as $files) {
 				$n = 'App\\Controller\\tools\\'.$files->getFilenameWithoutExtension();
-				$menu[] = $n::menu();
+				$tm = $n::menu();
+				if (empty( $tm) === false) {
+					$menu[] = $tm;
+				}
 			}
 		}
 		return $menu;

@@ -17,6 +17,14 @@
         <source>linuxacc</source>
         <target>Linux Server</target>
       </trans-unit>
+      <trans-unit id="5UkuYy6" resname="settings.useracc.title">
+        <source>settings.useracc.title</source>
+        <target>Benutzeraccounts</target>
+      </trans-unit>
+      <trans-unit id="KStY8EM" resname="settings.useracc.addNew">
+        <source>settings.useracc.addNew</source>
+        <target>Neu +</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -10,7 +10,7 @@
 		<ul class="navbar-nav mr-auto">
 			{% for item in gen.menu %}
 				<li class="nav-item">
-					<a class="nav-link" href="{{ item.url }}">
+					<a class="nav-link" href="{{ url(item.url) }}">
 						{% if item.translation_domain is defined %}
 							{{ item.name | trans([], item.translation_domain) }}
 						{% else %}

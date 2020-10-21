@@ -21,7 +21,9 @@ class EditUserAccountType extends AbstractType
 							'translation_domain' => 'settings.editUserAccount'
 						])
             ->add('roles', ChoiceType::class, [
-            	'multiple' => true,
+							'multiple' => true,
+							'expanded' => true,
+							'choices' => User::ROLES,
 							'label' => 'roles',
 							'translation_domain' => 'settings.editUserAccount'
 						])

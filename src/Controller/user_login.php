@@ -14,7 +14,7 @@ class user_login extends AbstractController {
 
 
 	/**
-	 * @Route("/login", methods={"GET"})
+	 * @Route("/login", methods={"GET"}, name="loginGet")
 	 */
 	public function login ( TokenStorageInterface $token ) {
 		$user = $token->getToken()->getUser();
