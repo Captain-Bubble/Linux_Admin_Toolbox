@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LinuxAccountsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Ambta\DoctrineEncryptBundle\Configuration\Encrypted;
 
 /**
  * @ORM\Entity(repositoryClass=LinuxAccountsRepository::class)
@@ -34,6 +35,7 @@ class LinuxAccounts {
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @Encrypted
 	 */
 	private $password;
 
