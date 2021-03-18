@@ -9,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Twig\Extension\TranslationExtension;
 
 class NewSetupFormType extends AbstractType
 {
@@ -17,17 +16,17 @@ class NewSetupFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-            	'label' => 'username',
-            	'translation_domain' => 'newSetup'
-						])
+                'label' => 'username',
+                'translation_domain' => 'newSetup'
+                        ])
             ->add('password', PasswordType::class, [
-            	'label' => 'password',
-            	'translation_domain' => 'newSetup'
-						])
-						->add( 'save', SubmitType::class, [
-							'label' => 'save_datas',
-							'translation_domain' => 'newSetup'
-						])
+                'label' => 'password',
+                'translation_domain' => 'newSetup'
+                        ])
+                        ->add('save', SubmitType::class, [
+                            'label' => 'save_datas',
+                            'translation_domain' => 'newSetup'
+                        ])
         ;
     }
 

@@ -17,25 +17,25 @@ class EditUserAccountType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-							'label' => 'username',
-							'translation_domain' => 'settings.editUserAccount'
-						])
+                            'label' => 'username',
+                            'translation_domain' => 'settings.editUserAccount'
+                        ])
             ->add('roles', ChoiceType::class, [
-							'multiple' => true,
-							'expanded' => true,
-							'choices' => User::ROLES,
-							'label' => 'roles',
-							'translation_domain' => 'settings.editUserAccount'
-						])
+                            'multiple' => true,
+                            'expanded' => true,
+                            'choices' => User::ROLES,
+                            'label' => 'roles',
+                            'translation_domain' => 'settings.editUserAccount'
+                        ])
             ->add('password', PasswordType::class, [
-							'label' => 'password',
-							'translation_domain' => 'settings.editUserAccount'
-						])
-					->add( 'submit', SubmitType::class, [
-						'label' => 'submit',
-						'attr' => ['class' => 'btn-primary sendSubmitEditUser'],
-						'translation_domain' => 'settings.editUserAccount'
-					])
+                            'label' => 'password',
+                            'translation_domain' => 'settings.editUserAccount'
+                        ])
+                    ->add('submit', SubmitType::class, [
+                        'label' => 'submit',
+                        'attr' => ['class' => 'btn-primary sendSubmitEditUser'],
+                        'translation_domain' => 'settings.editUserAccount'
+                    ])
         ;
     }
 
