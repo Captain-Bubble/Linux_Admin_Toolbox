@@ -1,25 +1,30 @@
 <?php
 
-namespace App\Bundle;
+namespace App\Service;
 
 use Doctrine\ORM\EntityManager;
 use App\Entity\LinuxAccounts;
 use Exception;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 // @TODO rework for better use with symfony
 
-class serverConnection
+class ServerConnection
 {
 
-    private $user = null;
+    private LinuxAccounts|null $user = null;
     private $connection = null;
     private $output = '';
     private $serverPath = '/';
     private $em = null;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, Session $session)
     {
         $this->em = $em;
+        $currAcc = $session->get('currentAccount', 0);
+        if ($currAcc != 0) {
+            $this->setUser($currAcc);
+        }
     }
 
     public function setUser(int $id) : void
@@ -33,7 +38,7 @@ class serverConnection
      * tries if connection is working
      * @return bool
      */
-    public function tryConnect()
+    public function tryConnect() : bool
     {
         $connect = ssh2_connect($this->user->getHost());
         if ($connect === false) {
@@ -48,9 +53,10 @@ class serverConnection
     /**
      * connects to the server with the account
      * don´t forget to use disconnect() after finishing task
+     * @return ServerConnection $this
      * @throws Exception
      */
-    public function connect()
+    public function connect() : ServerConnection
     {
         $this->connection = ssh2_connect($this->user->getHost());
         if ($this->connection === false) {
@@ -59,22 +65,47 @@ class serverConnection
 
         $authSuccess = false;
         if (empty($this->user->getPrivateKey()) === false) {
-            $authSuccess = ssh2_auth_pubkey_file($this->connection, $this->user->getUsername(), $this->user->getPublicKey(), $this->user->getPrivateKey(), $this->user->getPassphrase());
+            $authSuccess = ssh2_auth_pubkey_file(
+                $this->connection,
+                $this->user->getUsername(),
+                $this->user->getPublicKey(),
+                $this->user->getPrivateKey(),
+                $this->user->getPassphrase()
+            );
         }
 
         if (!$authSuccess && empty($this->user->getPassword()) === false) {
-            $authSuccess = ssh2_auth_password($this->connection, $this->user->getUsername(), $this->user->getPassword());
+            $authSuccess = ssh2_auth_password(
+                $this->connection,
+                $this->user->getUsername(),
+                $this->user->getPassword()
+            );
+
+            if ($this->user->getRequireSudo()) {
+                $cmd = 'echo "'. $this->user->getPassword() .'" | sudo -S "echo \'\'"';
+                ssh2_exec($this->connection, $cmd);
+            }
         }
 
         if ($authSuccess) {
-            return $this;
+            $stream = ssh2_exec($this->connection, 'realpath .');
+            stream_set_blocking($stream, true);
+            $stream = stream_get_contents($stream);
+            $this->serverPath = $stream;
         } else {
             throw new Exception('error_auth', 2);
         }
+        return $this;
     }
 
-
-    public function exec($cmd)
+    /**
+     * executes commands
+     * the result will be stored in output ( use getOutput() )
+     * @param $cmd
+     * @return ServerConnection $this
+     * @throws Exception
+     */
+    public function exec($cmd) : ServerConnection
     {
         if (empty($this->connection) === true) {
             throw new Exception('error_no_connection', 3);
@@ -86,12 +117,23 @@ class serverConnection
         return $this;
     }
 
-    public function getOutput()
+    /**
+     * returns the output of the previous command ( exec($cmd) )
+     * @return string
+     */
+    public function getOutput() : string
     {
         return $this->output;
     }
 
-    public function gotoServerFolder($folder)
+    /**
+     * changes the folder on the server
+     * accepts relative or absolute path to folder
+     * does not check if path not exist!
+     * @param $folder
+     * @return ServerConnection $this
+     */
+    public function gotoServerFolder($folder) : ServerConnection
     {
         if (substr($folder, 0, 1) == '/') {
             if (substr($folder, -1) == '/') {
@@ -111,13 +153,20 @@ class serverConnection
         } else {
             $this->serverPath = $this->serverPath .'/'. $folder;
         }
+        $this->serverPath = str_replace('//', '/', $this->serverPath);
+
         return $this;
     }
 
-    public function listFolders()
+    /**
+     * lists all folders in current path
+     * @return array
+     * @throws Exception
+     */
+    public function listFolders() : array
     {
         $ret = array();
-        $res = $this->exec('ls -d */');
+        $res = $this->exec('cd "'. $this->serverPath .'";ls -d */');
         $res = explode(PHP_EOL, $res);
         foreach ($res as $k => $v) {
             if (empty($v) === false) {
@@ -127,10 +176,15 @@ class serverConnection
         return $ret;
     }
 
-    public function listFiles()
+    /**
+     * lists all files in current path
+     * @return array
+     * @throws Exception
+     */
+    public function listFiles() : array
     {
         $ret = array();
-        $res = $this->exec('ls -p | grep -v /');
+        $res = $this->exec('cd "'. $this->serverPath .'";ls -p | grep -v /');
         $res = explode(PHP_EOL, $res);
         foreach ($res as $k => $v) {
             if (empty($v) === false) {
@@ -141,16 +195,20 @@ class serverConnection
     }
 
     /**
-     * lädt eine Datei in das ausgewählte Verzeichnis im Server hoch
-     * @param string $file !Absoluter! Pfad zur Datei
-     * @param string $targetFile Dateiname auf dem Server
+     * uploads file to server
+     * requires absolute path for uploaded file
+     * if $targetFile name is not set, the current name will be used
+     * @param string $file Absolute path to file
+     * @param null   $targetFile new filename
+     * @return bool
+     * @throws Exception
      */
-    public function uploadToServer($file, $targetFile = null)
+    public function uploadToServer(string $file, $targetFile = null) : bool
     {
         if (file_exists($file) === false) {
             return false;
         }
-        if (strpos($file, '/') === false) {
+        if (!str_contains($file, '/')) {
             return false;
         }
         if (empty($targetFile) === true) {
@@ -159,6 +217,12 @@ class serverConnection
         }
 
         ssh2_scp_send($this->connection, $file, $this->serverPath .'/'. $targetFile, 0666);
+
+        $tPath = $this->serverPath;
+        $this->disconnect();
+        $this->connect();
+        $this->gotoServerFolder($tPath);
+
         return true;
     }
 
@@ -177,7 +241,7 @@ class serverConnection
      * closes the connection
      * @return bool
      */
-    public function disconnect()
+    public function disconnect() : bool
     {
         if (empty($this->connection) === false) {
             ssh2_exec($this->connection, 'exit');
