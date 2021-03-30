@@ -3,14 +3,14 @@
 namespace App\Service;
 
 use Doctrine\ORM\EntityManager;
-use App\Entity\LinuxAccounts;
+use App\Entity\LinuxServer;
 use Exception;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ServerConnection
 {
 
-    private LinuxAccounts|null $user = null;
+    private LinuxServer|null $user = null;
     private $connection = null;
     private $output = '';
     private $serverPath = '/';
@@ -27,7 +27,7 @@ class ServerConnection
 
     public function setUser(int $id) : void
     {
-        $la = $this->em->getRepository(LinuxAccounts::class);
+        $la = $this->em->getRepository(LinuxServer::class);
         $this->user = $la->find($id);
     }
 

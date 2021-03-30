@@ -3,7 +3,9 @@
 
 namespace App\Controller;
 
+use App\Entity\LinuxServer;
 use App\Entity\User;
+use App\Form\EditLinuxServerType;
 use App\Form\EditUserAccountType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -107,11 +109,87 @@ class Settings extends AbstractController
     }
 
     /**
-     * @Route("/settings/linuxacc", name="settings.linuxacc")
+     * @Route("/settings/linuxServer", name="settings.linuxServer")
      * @IsGranted("ROLE_USER")
      */
-    public function linuxacc() : Response
+    public function linuxServer() : Response
     {
-        return $this->render('settings/settings.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $LinuxServer = $em->getRepository(LinuxServer::class)->findAll();
+
+        return $this->render('settings/settings.server.html.twig', [
+            'servers' => $LinuxServer
+        ]);
+    }
+
+    /**
+     * @Route("/settings/linuxServer/get", name="settings.linuxServer.ajax", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     * @param Request $request
+     * @return Response
+     */
+    public function editLinuxServerForm(Request $request) : Response
+    {
+        $id = $request->get('id', 0);
+
+        if (empty($id) === true) {
+            $server = new LinuxServer();
+        } else {
+            $server = $this->getDoctrine()->getManager()->getRepository(LinuxServer::class)->find($id);
+        }
+
+        $form = $this->createForm(EditLinuxServerType::class, $server);
+
+        return $this->render('settings/settings.user.ajax.html.twig', [
+            'f' => $form->createView()
+        ]);
+    }
+
+
+    /**
+     * @Route("/settings/linuxServer/noe", name="settings.linuxServer.noe")
+     * @IsGranted("ROLE_USER")
+     * @param Request $request
+     * @return Response
+     */
+    public function linuxServerNoe(Request $request) : Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->get('id') != null) {
+            $linuxServer = $em->getRepository(LinuxServer::class)->find($request->get('id'));
+
+            foreach (['serverName', 'host', 'username', 'password', 'requireSudo'] as $v) {
+                $set = 'set'. ucfirst($v);
+                $linuxServer->$set($request->get($v));
+            }
+
+        } else {
+            $form = $this->createForm(EditLinuxServerType::class, new LinuxServer());
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $linuxServer = $form->getData();
+            } else {
+                return new JsonResponse([
+                    'error_code' => 'SETTING_ERROR_DATA'
+                ]);
+            }
+        }
+
+        if (empty($linuxServer->getUsername()) === true) {
+            return new JsonResponse([
+                'error_code' => 'SETTING_ERROR_SERVERNAME'
+            ]);
+        }
+
+        if (empty($linuxServer->getId())) {
+            $em->persist($linuxServer);
+        }
+        $em->flush();
+
+        return new JsonResponse([
+            'data' => 'SUCCESS'
+        ]);
     }
 }

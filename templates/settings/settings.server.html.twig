@@ -1,0 +1,22 @@
+{% extends '/settings/settings.html.twig' %}
+{% trans_default_domain 'settings' %}
+{% block body %}
+	<div class="col-3">
+		<h3>{% trans %}settings.linuxServer.title{% endtrans %} <button class="float-right btn btn-primary user" data-id="0">{% trans %}settings.linuxServer.addNew{% endtrans %}</button> </h3>
+		<ul class="list-group">
+			{% for server in servers %}
+				<li class="list-group-item user" data-id="{{ server.id }}">{{ server.serverName }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="col-6" id="content"></div>
+{% endblock %}
+{# {% block stylesheets %} #}
+{# {% endblock %} #}
+{% block javascripts %}
+	<script>
+		let url_load_edit_user = "{{ url('settings.linuxServer.ajax') }}"
+		let url_noe_user = "{{ url('settings.linuxServer.noe') }}";
+	</script>
+	{{ encore_entry_script_tags('settings') }}
+{% endblock %}

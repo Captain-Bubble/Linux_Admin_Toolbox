@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\LinuxAccountsRepository;
+use App\Repository\LinuxServerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ambta\DoctrineEncryptBundle\Configuration\Encrypted;
 
 /**
- * @ORM\Entity(repositoryClass=LinuxAccountsRepository::class)
+ * @ORM\Entity(repositoryClass=LinuxServerRepository::class)
  * @ORM\Table(indexes={@ORM\Index(columns={"id"})})
  */
-class LinuxAccounts
+class LinuxServer
 {
     /**
      * @ORM\Id()
