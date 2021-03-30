@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\EditUserAccountType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,7 +30,7 @@ class Settings extends AbstractController
      * @Route("/settings/useracc", name="settings.useracc")
      * @IsGranted("ROLE_USER")
      */
-    public function useracc() : Response
+    public function userAcc() : Response
     {
 
         $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
@@ -45,7 +46,7 @@ class Settings extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function editUseraccForm(Request $request) : Response
+    public function editUserAccForm(Request $request) : Response
     {
         $id = $request->get('id', 0);
 
@@ -59,6 +60,49 @@ class Settings extends AbstractController
 
         return $this->render('settings/settings.user.ajax.html.twig', [
             'f' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/settings/useracc/noe", name="settings.useracc.noe")
+     * @IsGranted("ROLE_USER")
+     * @param Request $request
+     * @return Response
+     */
+    public function userAccNoe(Request $request) : Response
+    {
+
+        $form = $this->createForm(EditUserAccountType::class, new User());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+        } else {
+            return new JsonResponse([
+                'error_code' => 'SETTING_ERROR_DATA'
+            ]);
+        }
+
+        if (empty($user->getUsername()) === true) {
+            return new JsonResponse([
+                'error_code' => 'SETTING_ERROR_USERNAME'
+            ]);
+        }
+
+        if (empty($user->getPassword()) === true) {
+            return new JsonResponse([
+                'error_code' => 'SETTING_ERROR_PASSWD'
+            ]);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        if (empty($user->getId())) {
+            $em->persist($user);
+        }
+        $em->flush();
+
+        return new JsonResponse([
+            'data' => 'SUCCESS'
         ]);
     }
 

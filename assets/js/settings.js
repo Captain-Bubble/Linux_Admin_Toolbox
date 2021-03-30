@@ -27,9 +27,14 @@ $(document).ready(function () {
 
     $(document).on('click', '.sendSubmitEditUser', function (e) {
         e.preventDefault();
-        // let dat = $(this).parents('form').serialize();
-
-
+        let dat = $(this).parents('form').serialize();
+				$.ajax(url_noe_user, {
+					method:'POST',
+					data: dat,
+					success:function (data) {
+						
+					}
+				});
     });
 });
 

@@ -6,10 +6,13 @@ namespace App\Controller\tools;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class samba extends AbstractController
+class Samba extends AbstractController
 {
 
-    public static function menu()
+    /**
+     * @return string[]
+     */
+    public static function menu() : array
     {
         return ['url' => 'sambaMain', 'name' => 'samba', 'translation_domain' => 'samba'];
     }
