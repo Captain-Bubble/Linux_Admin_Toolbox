@@ -1,0 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+gets all registered users (without listing system users like root, postfix, sudo etc.):
+getent shadow | grep --invert-match ":\*" | grep --invert-match ":\!" | cut -d: -f1
+
+

@@ -7,8 +7,6 @@ use App\Entity\LinuxAccounts;
 use Exception;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-// @TODO rework for better use with symfony
-
 class ServerConnection
 {
 

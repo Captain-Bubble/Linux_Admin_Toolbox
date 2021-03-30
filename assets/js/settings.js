@@ -11,25 +11,25 @@
 // ------------------- JS ----------------
 import $ from 'jquery';
 
-$(document).ready(function (){
-	$(document).on('click', '.user', function (){
-		$(document).find('.user').removeClass('active');
-		$(this).addClass('active');
-		$.ajax({
-			method:"POST",
-			url:url_load_edit_user,
-			data:{'id':$(this).data('id')},
-			success:function (d) {
-				$('#content').html(d);
-			}
-		})
-	});
+$(document).ready(function () {
+    $(document).on('click', '.user', function () {
+        $(document).find('.user').removeClass('active');
+        $(this).addClass('active');
+        $.ajax({
+            method:"POST",
+            url:url_load_edit_user,
+            data:{'id':$(this).data('id')},
+            success:function (d) {
+                $('#content').html(d);
+            }
+        })
+    });
 
-	$(document).on('click', '.sendSubmitEditUser', function (e){
-		e.preventDefault();
-		// let dat = $(this).parents('form').serialize();
+    $(document).on('click', '.sendSubmitEditUser', function (e) {
+        e.preventDefault();
+        // let dat = $(this).parents('form').serialize();
 
 
-	});
+    });
 });
 

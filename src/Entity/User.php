@@ -12,10 +12,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
 
-	public const ROLES = [
-		'editAcc' => 'ROLE_EDIT_USERS',
-		'editServer' => 'ROLE_EDIT_LINUX',
-	];
+    public const ROLES = [
+        'editAcc' => 'ROLE_EDIT_USERS',
+        'editServer' => 'ROLE_EDIT_LINUX',
+    ];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -71,8 +71,8 @@ class User implements UserInterface
         $roles[] = 'ROLE_USER';
 
         if ($this->id == 1) {// user id 1 is always super admin
-					$roles[] = 'ROLE_SUPER_ADMIN';
-				}
+                    $roles[] = 'ROLE_SUPER_ADMIN';
+        }
 
         return array_unique($roles);
     }

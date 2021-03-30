@@ -7,7 +7,7 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
+		<ul class="navbar-nav me-auto">
 			{% for item in gen.menu %}
 				<li class="nav-item">
 					<a class="nav-link" href="{{ url(item.url) }}">
@@ -21,6 +21,13 @@
 			{% endfor %}
 		</ul>
 		<ul class="my-2 my-lg-0 navbar-nav">
+			<li class="nav-item">
+				<select name="" id="" class="form-select">
+					<option value="">1</option>
+					<option value="">2</option>
+					<option value="">3</option>
+				</select>
+			</li>
 			<li class="nav-item">
 				<a href="{{ url("settings") }}" class="nav-link{% if route starts with 'settings' %} active{% endif %}">
 					<svg class="fi fi-gray-dark">

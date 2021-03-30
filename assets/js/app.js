@@ -5,11 +5,11 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-import '../ext/bootstrap/css/bootstrap.min.css';
-import '../css/app.css';
+// import '../ext/bootstrap/css/bootstrap.min.css';
+import '../css/app.scss';
 
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 
 // import $ from 'jquery';
-import '../ext/bootstrap/js/bootstrap.bundle.min.js';
+import '../ext/bootstrap/js/index.esm';

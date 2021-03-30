@@ -1,0 +1,22 @@
+@import "./../ext/bootstrap/scss/bootstrap.scss";
+
+.fi {
+	width: 24px;
+	height: 24px;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	fill: none;
+}
+
+.fi-sm {
+	width: 18px;
+	height: 18px;
+}
+
+@each $color, $value in $theme-colors {
+	.fi-#{$color} {
+		stroke: $value;
+	}
+}
