@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\LinuxServerRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Ambta\DoctrineEncryptBundle\Configuration\Encrypted;
 
 /**
  * @ORM\Entity(repositoryClass=LinuxServerRepository::class)
@@ -35,8 +34,7 @@ class LinuxServer
     private $username = "";
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Encrypted
+     * @ORM\Column(type="string", length=1000, nullable=true)
      */
     private $password;
 
@@ -95,12 +93,12 @@ class LinuxServer
         return $this;
     }
 
-    public function getPassword() : ?string
+    public function getPassword() : String
     {
         return $this->password;
     }
 
-    public function setPassword(?string $password) : self
+    public function setPassword(String $password) : self
     {
         $this->password = $password;
 

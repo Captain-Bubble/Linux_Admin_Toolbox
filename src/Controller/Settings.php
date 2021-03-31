@@ -157,24 +157,21 @@ class Settings extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         if ($request->get('id') != null) {
+            /** @var LinuxServer $linuxServer */
             $linuxServer = $em->getRepository(LinuxServer::class)->find($request->get('id'));
 
-            foreach (['serverName', 'host', 'username', 'password', 'requireSudo'] as $v) {
-                $set = 'set'. ucfirst($v);
-                $linuxServer->$set($request->get($v));
-            }
-
         } else {
-            $form = $this->createForm(EditLinuxServerType::class, new LinuxServer());
-            $form->handleRequest($request);
+            $linuxServer = new LinuxServer();
+        }
+        $form = $this->createForm(EditLinuxServerType::class, $linuxServer);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $linuxServer = $form->getData();
-            } else {
-                return new JsonResponse([
-                    'error_code' => 'SETTING_ERROR_DATA'
-                ]);
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $linuxServer = $form->getData();
+        } else {
+            return new JsonResponse([
+                'error_code' => 'SETTING_ERROR_DATA'
+            ]);
         }
 
         if (empty($linuxServer->getUsername()) === true) {
@@ -183,7 +180,9 @@ class Settings extends AbstractController
             ]);
         }
 
-        if (empty($linuxServer->getId())) {
+//        dd($linuxServer->getPassword());
+
+        if (empty($linuxServer->getId()) === true) {
             $em->persist($linuxServer);
         }
         $em->flush();

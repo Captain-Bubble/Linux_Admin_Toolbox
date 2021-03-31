@@ -18,13 +18,6 @@ class EditLinuxServerType extends AbstractType
     {
         $builder
             ->add(
-                'id',
-                HiddenType::class,
-                [
-                    'empty_data' => ' ',
-                ]
-            )
-            ->add(
                 'serverName',
                 TextType::class,
                 [
@@ -93,9 +86,8 @@ class EditLinuxServerType extends AbstractType
             )
             ->add(
                 'requirePasswordAfterSudo',
-                HiddenType::class,
+                CheckboxType::class,
                 [
-                    'empty_data' => ' ',
                     'label' => 'requirePasswordAfterSudo',
                     'translation_domain' => 'settings.editLinuxServer'
                 ]
