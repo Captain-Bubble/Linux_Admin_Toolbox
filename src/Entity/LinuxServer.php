@@ -34,7 +34,7 @@ class LinuxServer
     private $username = "";
 
     /**
-     * @ORM\Column(type="string", length=1000, nullable=true)
+     * @ORM\Column(type="encrypted", length=1000, nullable=true)
      */
     private $password;
 
