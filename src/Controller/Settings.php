@@ -164,7 +164,7 @@ class Settings extends AbstractController
             $linuxServer = new LinuxServer();
         }
         $form = $this->createForm(EditLinuxServerType::class, $linuxServer);
-        $form->handleRequest($request);
+        $form->submit($request->get($form->getName()), false);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $linuxServer = $form->getData();

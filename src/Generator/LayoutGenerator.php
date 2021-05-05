@@ -3,9 +3,12 @@
 
 namespace App\Generator;
 
+use App\Entity\LinuxServer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\Session\Session;
 
-class LayoutGenerator
+class LayoutGenerator extends AbstractController
 {
 
     /**
@@ -29,5 +32,16 @@ class LayoutGenerator
             }
         }
         return $menu;
+    }
+
+    public function getServerList() : array
+    {
+        return $this->getDoctrine()->getManager()->getRepository(LinuxServer::class)->findAll();
+    }
+
+    public function getActiveServer()
+    {
+        $session = new Session();
+        return $session->get('activeServer', 0);
     }
 }

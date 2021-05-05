@@ -98,8 +98,11 @@ class LinuxServer
         return $this->password;
     }
 
-    public function setPassword(String $password) : self
+    public function setPassword(String|null $password) : self
     {
+        if (is_null($password)) {
+            return $this;
+        }
         $this->password = $password;
 
         return $this;

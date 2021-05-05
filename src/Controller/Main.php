@@ -7,8 +7,11 @@ use App\Entity\User;
 use LogicException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -71,5 +74,28 @@ class Main extends AbstractController
     public function logout()
     {
         throw new logicException('logout function in main shouldn´t be able to run');
+    }
+
+
+    /**
+     * @Route ("/session/set/{key}", methods={"POST"})
+     */
+    public function setSession($key, Request $request) : JsonResponse
+    {
+        $session = new Session();
+        $session->set($key, $request->get('val'));
+
+        return new JsonResponse(['data' => true]);
+    }
+
+    /**
+     * @Route ("/session/get/{key}", methods={"POST"})
+     */
+    public function getSession($key) : JsonResponse
+    {
+        $session = new Session();
+        $d = $session->get($key);
+
+        return new JsonResponse(['data' => true, 'val' => $d]);
     }
 }
