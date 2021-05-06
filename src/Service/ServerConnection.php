@@ -62,7 +62,7 @@ class ServerConnection
         }
 
         $authSuccess = false;
-        if (empty($this->user->getPrivateKey()) === false) {
+        if (empty(trim($this->user->getPrivateKey())) === false) {
             $authSuccess = ssh2_auth_pubkey_file(
                 $this->connection,
                 $this->user->getUsername(),
@@ -109,9 +109,13 @@ class ServerConnection
             throw new Exception('error_no_connection', 3);
         }
         $stream = ssh2_exec($this->connection, 'cd '. $this->serverPath .'; '. $cmd);
-        stream_set_blocking($stream, true);
-        $stream = stream_get_contents($stream);
-        $this->output = $stream;
+//        $stream = ssh2_fetch_stream($exec, SSH2_STREAM_STDIO);
+//        stream_set_blocking($stream, true);
+        dump($this->serverPath);
+        dump($cmd);
+        dump($stream);
+        $this->output = stream_get_contents($stream);
+        dump($this->output);
         return $this;
     }
 
