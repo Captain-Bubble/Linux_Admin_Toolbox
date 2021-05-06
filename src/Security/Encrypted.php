@@ -10,11 +10,13 @@ class Encrypted extends Type
     /**
      * @var string only if cipher isn´t set/found in env
      */
-    private $defaultCipher = 'aes-256-gcm';
+    private string $defaultCipher = 'aes-256-gcm';
 
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    private int $options = OPENSSL_RAW_DATA;
+
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform) : string
     {
-        return $platform->getClobTypeDeclarationSQL($fieldDeclaration);
+        return $platform->getClobTypeDeclarationSQL($column);
     }
 
     public function getName(): string
@@ -40,7 +42,7 @@ class Encrypted extends Type
         $passphrase = $_ENV['APP_SECRET'];
 
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
-        $encrypted = openssl_encrypt($value, $cipher, $passphrase, 0, $iv, $tag);
+        $encrypted = openssl_encrypt($value, $cipher, $passphrase, $this->options, $iv, $tag);
 
         return base64_encode($iv) .'.'. base64_encode($tag) .'.'. base64_encode($encrypted);
     }
@@ -70,7 +72,7 @@ class Encrypted extends Type
         $tag = base64_decode($value[1]);
         $value = base64_decode($value[2]);
 
-        return openssl_decrypt($value, $cipher, $passphrase, 0, $iv, $tag);
+        return openssl_decrypt($value, $cipher, $passphrase, $this->options, $iv, $tag);
     }
 
 }

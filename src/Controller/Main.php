@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\LinuxServer;
 use App\Entity\User;
 use LogicException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -65,6 +66,18 @@ class Main extends AbstractController
      */
     public function dashboard() : Response
     {
+
+        // selecting first server as default server if no server is selected
+        $session = new Session();
+        $activeServer = $session->get('activeServer');
+        if (empty($activeServer) === true) {
+            $lsr = $this->getDoctrine()->getManager()->getRepository(LinuxServer::class);
+            foreach ($lsr->findAll() as $v) {
+                $session->set('activeServer', $v->getId());
+                break;
+            }
+        }
+
         return $this->render('base.html.twig');
     }
 

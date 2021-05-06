@@ -9,9 +9,11 @@
 </head>
 <body>
 {% if is_granted('ROLE_USER') %}
-<div class="container-fluid">
+<div class="container-fluid bg-light">
 	{{ include('necessary/navigation.html.twig') }}
-	<div class="row">
+</div>
+<div class="container-fluid">
+    <div class="row">
 		{% endif %}
 		{% block nav %}{% endblock %}
 		{% block body %}

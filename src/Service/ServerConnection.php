@@ -19,7 +19,7 @@ class ServerConnection
     public function __construct(EntityManager $em, Session $session)
     {
         $this->em = $em;
-        $currAcc = $session->get('currentAccount', 0);
+        $currAcc = $session->get('activeServer', 0);
         if ($currAcc != 0) {
             $this->setUser($currAcc);
         }
@@ -163,10 +163,9 @@ class ServerConnection
      */
     public function listFolders() : array
     {
-        $ret = array();
-        $res = $this->exec('cd "'. $this->serverPath .'";ls -d */');
-        $res = explode(PHP_EOL, $res);
-        foreach ($res as $k => $v) {
+        $this->exec('cd "'. $this->serverPath .'";ls -d */');
+        $res = explode(PHP_EOL, $this->output);
+        foreach ($res as $v) {
             if (empty($v) === false) {
                 $ret[] = str_replace('/', '', $v);
             }
@@ -182,9 +181,9 @@ class ServerConnection
     public function listFiles() : array
     {
         $ret = array();
-        $res = $this->exec('cd "'. $this->serverPath .'";ls -p | grep -v /');
-        $res = explode(PHP_EOL, $res);
-        foreach ($res as $k => $v) {
+        $this->exec('cd "'. $this->serverPath .'";ls -p | grep -v /');
+        $res = explode(PHP_EOL, $this->output);
+        foreach ($res as $v) {
             if (empty($v) === false) {
                 $ret[] = $v;
             }
