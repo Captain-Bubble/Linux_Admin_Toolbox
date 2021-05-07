@@ -1,6 +1,26 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'samba' %}
 {% block title %} - {% trans %}samba{% endtrans %}{% endblock %}
+{% block nav %}
+    <div class="col-2 pt-2">
+        <ul class="nav flex-column">
+            <li class="nav-item p-1">
+                <button class="btn btn-primary"><svg class="fi">
+                        <use xlink:href="{{ asset('/files/icons/feather-sprite.svg') }}#plus" />
+                    </svg> {% trans %}button.addUser{% endtrans %}</button>
+            </li>
+            {% for i in userlist %}
+                <li class="nav-item p-1">
+                    <a href="#" class="nav-link">
+                        {{ i }}
+                    </a>
+                </li>
+            {% else %}
+                <li>{% trans %}user.notFound{% endtrans %}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
 {% block body %}
 
 {% endblock %}

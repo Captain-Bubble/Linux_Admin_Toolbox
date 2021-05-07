@@ -8,12 +8,22 @@ $(document).ready(function () {
         let v = $(this).val();
 
         $.ajax('/session/set/activeServer', {
+            method:'POST',
             data:{'val':v},
             success:function () {
-                window.location.reload();
+							$('#clearCache').trigger('click');
             }
         });
 
     });
+
+    $('#clearCache').click(function () {
+				$.ajax('/session/clear', {
+						method: 'POST',
+						success: function () {
+								window.location.reload();
+						}
+				});
+    })
 
 });

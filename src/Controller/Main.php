@@ -8,6 +8,7 @@ use App\Entity\User;
 use LogicException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -92,6 +93,7 @@ class Main extends AbstractController
 
     /**
      * @Route ("/session/set/{key}", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function setSession($key, Request $request) : JsonResponse
     {
@@ -103,6 +105,7 @@ class Main extends AbstractController
 
     /**
      * @Route ("/session/get/{key}", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function getSession($key) : JsonResponse
     {
@@ -110,5 +113,24 @@ class Main extends AbstractController
         $d = $session->get($key);
 
         return new JsonResponse(['data' => true, 'val' => $d]);
+    }
+
+    /**
+     * @Route ("/session/clear", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     * @return JsonResponse
+     */
+    public function clearSessions() : JsonResponse
+    {
+        $finder = new Finder();
+
+        $finder->in(__DIR__ .'/../Controller/tools/')->files()->name('*.php');
+        if ($finder->hasResults()) {
+            foreach ($finder as $files) {
+                $n = 'App\\Controller\\tools\\'.$files->getFilenameWithoutExtension();
+                $n::clearSession();
+            }
+        }
+        return new JsonResponse(['data' => true]);
     }
 }

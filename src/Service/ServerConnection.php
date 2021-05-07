@@ -13,6 +13,7 @@ class ServerConnection
     private LinuxServer|null $user = null;
     private $connection = null;
     private $output = '';
+    private $error = '';
     private $serverPath = '/';
     private $em = null;
 
@@ -38,7 +39,11 @@ class ServerConnection
      */
     public function tryConnect() : bool
     {
-        $connect = ssh2_connect($this->user->getHost());
+        $host = $this->user?->getHost();
+        if (empty($host) === true) {
+            return false;
+        }
+        $connect = ssh2_connect($host);
         if ($connect === false) {
             return false;
         }
@@ -79,7 +84,7 @@ class ServerConnection
                 $this->user->getPassword()
             );
 
-            if ($this->user->getRequireSudo()) {
+            if ($this->user->getRequirePasswordAfterSudo()) {
                 $cmd = 'echo "'. $this->user->getPassword() .'" | sudo -S "echo \'\'"';
                 ssh2_exec($this->connection, $cmd);
             }
@@ -89,7 +94,7 @@ class ServerConnection
             $stream = ssh2_exec($this->connection, 'realpath .');
             stream_set_blocking($stream, true);
             $stream = stream_get_contents($stream);
-            $this->serverPath = $stream;
+            $this->serverPath = trim($stream);
         } else {
             throw new Exception('error_auth', 2);
         }
@@ -108,14 +113,20 @@ class ServerConnection
         if (empty($this->connection) === true) {
             throw new Exception('error_no_connection', 3);
         }
-        $stream = ssh2_exec($this->connection, 'cd '. $this->serverPath .'; '. $cmd);
-//        $stream = ssh2_fetch_stream($exec, SSH2_STREAM_STDIO);
-//        stream_set_blocking($stream, true);
-        dump($this->serverPath);
-        dump($cmd);
-        dump($stream);
-        $this->output = stream_get_contents($stream);
-        dump($this->output);
+        if ($this->user->getRequireSudo()) {
+            $cmd = 'echo "'. $this->user->getPassword() .'" | sudo -S '. $cmd;
+        }
+        $stdout_stream = ssh2_exec($this->connection, 'cd '. trim($this->serverPath) .'; '. $cmd);
+
+        $sio_stream = ssh2_fetch_stream($stdout_stream, SSH2_STREAM_STDIO);
+        $err_stream = ssh2_fetch_stream($stdout_stream, SSH2_STREAM_STDERR);
+
+        stream_set_blocking($sio_stream, true);
+        stream_set_blocking($err_stream, true);
+
+        $this->output = stream_get_contents($sio_stream);
+        $this->error = stream_get_contents($err_stream);
+
         return $this;
     }
 
@@ -126,6 +137,17 @@ class ServerConnection
     public function getOutput() : string
     {
         return $this->output;
+    }
+
+    /**
+     * returns the error output of the previous command ( exec($cmd) )
+     * Note: if require password after sudo is set,
+     * the error output can contain something like "[sudo] password for..."
+     * @return string
+     */
+    public function getError() : string
+    {
+        return $this->error;
     }
 
     /**
